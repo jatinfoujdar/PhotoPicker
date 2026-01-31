@@ -8,16 +8,32 @@
 import SwiftUI
 
 struct MomentEntryView: View {
+    @State private var text: String = ""
+    @State private var note: String = ""
+    
     var body: some View {
-        contentStack
+        NavigationStack{
+            ScrollView{
+                contentStack
+            }
+            .scrollDismissesKeyboard(.interactively)
+            .navigationTitle("Grateful Moment")
+        }
     }
     
     var contentStack: some View {
         VStack(alignment: .leading){
-            Text("Title")
+            TextField(text: $text){
+                Text("Title (Required)")
+            }
+            .font(.title.bold())
+            .padding(.top, 40)
             
+            Divider()
             
-            Text("Note")
+            TextField("Log you small wins",text: $note, axis: .vertical)
+                .multilineTextAlignment(.leading)
+                .lineLimit(5...Int.max)
         }
         .padding()
     }
